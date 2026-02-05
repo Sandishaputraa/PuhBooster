@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.puh.booster">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Fix minSdk conflict dengan Shizuku -->
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="34"
+        tools:overrideLibrary="rikka.shizuku.api,rikka.shizuku.provider" />
 
     <!-- Shizuku Permission (MUST HAVE) -->
     <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
-    
+
     <!-- Internet for updates/analytics -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
+
     <!-- Optional system permissions via Shizuku -->
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-    
+
     <!-- Foreground service for auto-optimization -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    
+
     <application
         android:name=".BoosterApplication"
         android:allowBackup="true"
@@ -30,7 +35,7 @@
         android:requestLegacyExternalStorage="false"
         tools:targetApi="31"
         tools:ignore="GoogleAppIndexingWarning">
-        
+
         <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
@@ -43,13 +48,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <!-- Settings Activity (Optional) -->
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="@string/title_settings" />
-        
+
         <!-- Shizuku Provider (CRITICAL) -->
         <provider
             android:name="rikka.shizuku.ShizukuProvider"
@@ -59,7 +64,7 @@
             android:multiprocess="false"
             android:permission="android.permission.INTERACT_ACROSS_USERS_FULL"
             tools:ignore="ExportedContentProvider" />
-        
+
         <!-- WorkManager Initialization -->
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -70,6 +75,6 @@
                 android:name="androidx.work.WorkManagerInitializer"
                 android:value="androidx.startup" />
         </provider>
-        
+
     </application>
 </manifest>

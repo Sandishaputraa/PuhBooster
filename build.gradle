@@ -10,13 +10,7 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
+// HAPUS allprojects block karena sudah diatur di settings.gradle
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

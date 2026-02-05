@@ -2,12 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Fix minSdk conflict dengan Shizuku -->
-    <uses-sdk
-        android:minSdkVersion="21"
-        android:targetSdkVersion="34"
-        tools:overrideLibrary="rikka.shizuku.api,rikka.shizuku.provider" />
-
     <!-- Shizuku Permission (MUST HAVE) -->
     <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
 

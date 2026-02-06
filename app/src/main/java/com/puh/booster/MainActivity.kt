@@ -3,13 +3,12 @@ package com.puh.booster
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.puh.booster.databinding.ActivityMainBinding
 import com.puh.booster.models.ProfileType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import rikka.shizuku.Shizuku
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +25,7 @@ class MainActivity : AppCompatActivity() {
                 "Shizuku permission denied"
             }
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            updateShizukuStatus()
         }
     }
     
@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         
         setupUI()
-        checkShizukuAvailability()
+        updateShizukuStatus()
+        setupSwipeRefresh()
     }
     
     override fun onStart() {
@@ -49,29 +50,63 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun setupUI() {
-        // Profile buttons
+        // Profile buttons - menggunakan View Binding dengan ID yang benar
         binding.btnGaming.setOnClickListener { applyProfile(ProfileType.GAMING) }
-        binding.btnBattery.setOnClickListener { applyProfile(ProfileType.BATTERY) }
         binding.btnBalanced.setOnClickListener { applyProfile(ProfileType.BALANCED) }
+        binding.btnBattery.setOnClickListener { applyProfile(ProfileType.BATTERY) }
         
-        // Quick actions
+        // Quick action buttons
         binding.btnClearCache.setOnClickListener { clearSystemCache() }
         binding.btnBoostRam.setOnClickListener { boostMemory() }
         binding.btnKillApps.setOnClickListener { killBackgroundApps() }
         binding.btnNetworkBoost.setOnClickListener { optimizeNetwork() }
+        
+        // Info and Settings buttons
+        binding.btnInfo.setOnClickListener { showAppInfo() }
+        binding.btnSettings.setOnClickListener { showSettings() }
+        binding.btnRequestPermission.setOnClickListener { requestShizukuPermission() }
     }
     
-    private fun checkShizukuAvailability() {
-        binding.shizukuStatus.text = if (BoosterUtils.isShizukuAvailable()) {
-            "Shizuku: Available"
-        } else {
-            "Shizuku: Not Available"
+    private fun setupSwipeRefresh() {
+        binding.swipeRefresh.setOnRefreshListener {
+            refreshData()
         }
+    }
+    
+    private fun refreshData() {
+        scope.launch {
+            updateShizukuStatus()
+            updateSystemInfo()
+            binding.swipeRefresh.isRefreshing = false
+        }
+    }
+    
+    private fun updateShizukuStatus() {
+        val isAvailable = BoosterUtils.isShizukuAvailable()
+        val hasPermission = BoosterUtils.checkShizukuPermission()
+        
+        binding.tvShizukuStatus.text = when {
+            !isAvailable -> "Shizuku: Not Available"
+            !hasPermission -> "Shizuku: No Permission"
+            else -> "Shizuku: Ready ✓"
+        }
+        
+        binding.btnRequestPermission.isEnabled = isAvailable && !hasPermission
+    }
+    
+    private fun requestShizukuPermission() {
+        BoosterUtils.requestShizukuPermission(1000)
     }
     
     private fun applyProfile(profile: ProfileType) {
         if (!BoosterUtils.isShizukuAvailable()) {
-            Toast.makeText(this, "Shizuku permission required!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Shizuku not available!", Toast.LENGTH_SHORT).show()
+            return
+        }
+        
+        if (!BoosterUtils.checkShizukuPermission()) {
+            Toast.makeText(this, "Please grant Shizuku permission first!", Toast.LENGTH_SHORT).show()
+            requestShizukuPermission()
             return
         }
         
@@ -86,6 +121,9 @@ class MainActivity : AppCompatActivity() {
                     ProfileType.CUSTOM -> "Custom profile applied! ⚙️"
                 }
                 Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
+                
+                // Update last applied
+                binding.tvLastApplied.text = "Last: ${profile.name}"
             } else {
                 Toast.makeText(this@MainActivity, "Failed to apply profile", Toast.LENGTH_SHORT).show()
             }
@@ -116,7 +154,7 @@ class MainActivity : AppCompatActivity() {
     
     private fun killBackgroundApps() {
         scope.launch {
-            val success = BoosterUtils.forceStopApp("com.example.app") // Ganti dengan package yang sesuai
+            val success = BoosterUtils.forceStopApp("com.example.app")
             
             if (success) {
                 Toast.makeText(this@MainActivity, "Background apps killed!", Toast.LENGTH_SHORT).show()
@@ -148,8 +186,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
     
-    private fun updateLastApplied(profileName: String) {
-        // Simpan ke preferences atau update UI
-        binding.lastApplied.text = "Last applied: $profileName"
+    private fun updateSystemInfo() {
+        scope.launch {
+            val systemInfo = BoosterUtils.getSystemInfo()
+            val infoText = buildString {
+                systemInfo.forEach { (key, value) ->
+                    append("$key: $value\n")
+                }
+            }
+            binding.tvSystemInfo.text = infoText.trim()
+        }
+    }
+    
+    private fun showAppInfo() {
+        Toast.makeText(this, "PuhBooster v1.0.0\nPerformance Booster for Android", Toast.LENGTH_LONG).show()
+    }
+    
+    private fun showSettings() {
+        Toast.makeText(this, "Settings will be available soon!", Toast.LENGTH_SHORT).show()
     }
 }

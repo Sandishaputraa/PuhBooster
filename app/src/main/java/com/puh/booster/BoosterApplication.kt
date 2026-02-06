@@ -16,11 +16,14 @@ class BoosterApplication : Application(), Configuration.Provider {
         super.onCreate()
         instance = this
         
-        // Initialize Shizuku
-        if (Shizuku.pingBinder()) {
-            Shizuku.addBinderDiedListener {
-                // Handle Shizuku service death
+        // Initialize Shizuku - hanya jika service tersedia
+        try {
+            if (Shizuku.pingBinder()) {
+                // Shizuku v13+ mungkin tidak punya addBinderDiedListener
+                // Cukup ping saja untuk cek ketersediaan
             }
+        } catch (e: Exception) {
+            // Ignore if Shizuku not available
         }
         
         // Initialize WorkManager

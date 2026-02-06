@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base Text style -->
-    <style name="Text">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/text_primary</item>
-    </style>
-
     <!-- Button styles -->
     <style name="Widget.MaterialComponents.Button.OutlinedButton" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">wrap_content</item>
@@ -34,20 +28,20 @@
     </style>
 
     <!-- Card styles -->
-    <style name="Card.Profile" parent="CardView">
+    <style name="Card.Profile" parent="androidx.cardview.widget.CardView">
         <item name="cardCornerRadius">12dp</item>
         <item name="cardElevation">4dp</item>
         <item name="cardBackgroundColor">@color/card_background</item>
     </style>
 
-    <style name="Card.Action" parent="CardView">
+    <style name="Card.Action" parent="androidx.cardview.widget.CardView">
         <item name="cardCornerRadius">12dp</item>
         <item name="cardElevation">2dp</item>
         <item name="cardBackgroundColor">@color/card_background</item>
     </style>
 
-    <!-- Base CardView style -->
-    <style name="CardView" parent="CardView">
+    <!-- Base CardView style - PERBAIKAN: parent harus androidx.cardview.widget.CardView -->
+    <style name="CardView" parent="androidx.cardview.widget.CardView">
         <item name="cardCornerRadius">8dp</item>
         <item name="cardElevation">2dp</item>
         <item name="cardUseCompatPadding">true</item>

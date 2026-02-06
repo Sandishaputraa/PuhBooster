@@ -49,22 +49,37 @@ object BoosterUtils {
     
     private fun applyGamingProfile(context: Context): Boolean {
         // Implement gaming profile
-        return true
+        return try {
+            executeCommand("echo 'gaming' > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor")
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
     
     private fun applyBalancedProfile(context: Context): Boolean {
         // Implement balanced profile
-        return true
+        return try {
+            executeCommand("echo 'ondemand' > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor")
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
     
     private fun applyBatteryProfile(context: Context): Boolean {
         // Implement battery profile
-        return true
+        return try {
+            executeCommand("echo 'powersave' > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor")
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
     
     private fun applyCustomProfile(context: Context): Boolean {
         // Implement custom profile
-        return true
+        return false
     }
     
     // Execute shell command
@@ -89,7 +104,7 @@ object BoosterUtils {
     // Force stop app
     fun forceStopApp(packageName: String): Boolean {
         return try {
-            val result = executeCommand("am force-stop $packageName")
+            executeCommand("am force-stop $packageName")
             true
         } catch (e: Exception) {
             false
@@ -99,9 +114,9 @@ object BoosterUtils {
     // Get system info
     fun getSystemInfo(): Map<String, String> {
         return mapOf(
-            "CPU" to executeCommand("cat /proc/cpuinfo | grep 'model name' | head -1"),
-            "RAM" to executeCommand("cat /proc/meminfo | grep MemTotal"),
-            "Android" to executeCommand("getprop ro.build.version.release")
+            "CPU" to executeCommand("cat /proc/cpuinfo | grep 'model name' | head -1").trim(),
+            "RAM" to executeCommand("cat /proc/meminfo | grep MemTotal").trim(),
+            "Android" to executeCommand("getprop ro.build.version.release").trim()
         )
     }
 }

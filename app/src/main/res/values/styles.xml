@@ -33,25 +33,21 @@
         <item name="backgroundTint">@color/button_primary</item>
     </style>
 
-    <!-- Card styles - parent harus @style/CardView.Light atau theme attr -->
-    <style name="Card.Profile" parent="@style/CardView">
+    <!-- Card styles - gunakan theme attr atau hapus style custom -->
+    <style name="Card.Profile">
         <item name="cardCornerRadius">12dp</item>
         <item name="cardElevation">4dp</item>
         <item name="cardBackgroundColor">@color/card_background</item>
     </style>
 
-    <style name="Card.Action" parent="@style/CardView">
+    <style name="Card.Action">
         <item name="cardCornerRadius">12dp</item>
         <item name="cardElevation">2dp</item>
         <item name="cardBackgroundColor">@color/card_background</item>
     </style>
 
-    <!-- Base CardView style - parent harus CardView dari library -->
-    <style name="CardView" parent="CardView">
-        <item name="cardCornerRadius">8dp</item>
-        <item name="cardElevation">2dp</item>
-        <item name="cardUseCompatPadding">true</item>
-    </style>
+    <!-- HAPUS style CardView yang bermasalah -->
+    <!-- JANGAN buat style dengan name="CardView" parent="CardView" -->
 
     <!-- Text styles -->
     <style name="Text.Title" parent="@style/Text">

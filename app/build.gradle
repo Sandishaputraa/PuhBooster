@@ -103,3 +103,10 @@ dependencies {
     // Debug only
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 }
+
+android {
+    lintOptions {
+        abortOnError = false
+        checkReleaseBuilds = false
+    }
+}

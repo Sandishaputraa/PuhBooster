@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base Text style -->
+    <style name="Text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
     <!-- Button styles -->
     <style name="Widget.MaterialComponents.Button.OutlinedButton" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">wrap_content</item>

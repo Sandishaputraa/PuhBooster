@@ -9,7 +9,7 @@
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/accent_light</item>
-        <item name="colorSecondaryDark">@color/accent</item>
+        <!-- Material Components doesn't have colorSecondaryDark, use colorSecondary instead -->
         <item name="colorOnSecondary">@android:color/black</item>
 
         <!-- Status bar color. -->
@@ -24,12 +24,9 @@
 
         <!-- Material Components -->
         <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button</item>
-        <item name="cardViewStyle">@style/CardView</item>
 
         <!-- Action bar -->
         <item name="actionBarSize">56dp</item>
-
-        <!-- No action bar (sudah di parent NoActionBar) -->
     </style>
 
     <style name="Theme.PuhBooster.NoActionBar">

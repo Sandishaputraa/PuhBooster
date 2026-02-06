@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.puh.booster"
-        minSdk 23  # <-- UBAH INI DARI 21 KE 23
+        minSdk 23  // Changed from 21 to 23 for Shizuku compatibility
         targetSdk 34
         versionCode 1
         versionName "1.0.0"
@@ -74,7 +74,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.cardview:cardview:1.0.0'
 
-    // Shizuku API (NON-ROOT ESSENTIAL) - BUTUH MIN SDK 23!
+    // Shizuku API (NON-ROOT ESSENTIAL) - Requires minSdk 23
     implementation 'dev.rikka.shizuku:api:13.1.5'
     implementation 'dev.rikka.shizuku:provider:13.1.5'
 

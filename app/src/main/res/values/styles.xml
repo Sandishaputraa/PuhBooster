@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Button styles -->
+    <style name="Widget.MaterialComponents.Button.OutlinedButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="strokeColor">@color/accent</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.Button.TextButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:paddingHorizontal">8dp</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
     <style name="Button.Primary" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">48dp</item>
@@ -9,20 +25,6 @@
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
         <item name="backgroundTint">@color/button_primary</item>
-    </style>
-
-    <style name="Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:paddingHorizontal">16dp</item>
-        <item name="strokeColor">@color/accent</item>
-    </style>
-
-    <style name="Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">36dp</item>
-        <item name="android:paddingHorizontal">8dp</item>
     </style>
 
     <!-- Card styles -->
@@ -36,6 +38,13 @@
         <item name="cardCornerRadius">12dp</item>
         <item name="cardElevation">2dp</item>
         <item name="cardBackgroundColor">@color/card_background</item>
+    </style>
+
+    <!-- Base CardView style -->
+    <style name="CardView" parent="CardView">
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardUseCompatPadding">true</item>
     </style>
 
     <!-- Text styles -->
@@ -67,13 +76,5 @@
         <item name="android:fontFamily">monospace</item>
         <item name="android:textSize">12sp</item>
         <item name="android:lineHeight">16sp</item>
-    </style>
-</resources>
-
-    <!-- Base CardView style -->
-    <style name="CardView" parent="CardView">
-        <item name="cardCornerRadius">8dp</item>
-        <item name="cardElevation">2dp</item>
-        <item name="cardUseCompatPadding">true</item>
     </style>
 </resources>
